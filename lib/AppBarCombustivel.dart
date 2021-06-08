@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppBarCombustivel extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
-    var _titulo = 'Alcool ou Gasolina';
+    var _titulo = 'Álcool ou Gasolina';
     return AppBar(
       title: Text(_titulo),
       backgroundColor: Colors.blueGrey,

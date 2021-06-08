@@ -6,8 +6,35 @@ class BodyCombustivel extends StatefulWidget {
 }
 
 class _BodyCombustivelState extends State<BodyCombustivel> {
-  TextEditingController _valorAlcool = TextEditingController();
-  TextEditingController _valorGasolina = TextEditingController();
+  TextEditingController _controllerValorAlcool = TextEditingController();
+  TextEditingController _controllerValorGasolina = TextEditingController();
+  String _resultado = '';
+
+  void _calcular() {
+    double valorAlcool = double.tryParse(_controllerValorAlcool.text);
+    double valorGasolina = double.tryParse(_controllerValorGasolina.text);
+
+    if (valorAlcool == null || valorGasolina == null) {
+      setState(() {
+        _resultado =
+            'Número invalido, digite números maiores que 0 e utilizando o (.)';
+      });
+    } else {
+      var diferenca = valorAlcool / valorGasolina;
+
+      if (diferenca >= 0.70) {
+        setState(() {
+          _resultado = 'Melhor abastecer com Gasolina!';
+        });
+      } else {
+        setState(() {
+          _resultado = 'Melhor abastecer com Álcool!';
+        });
+      }
+    }
+
+    //_resultado
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +59,13 @@ class _BodyCombustivelState extends State<BodyCombustivel> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'Preço do litro do Alcool. Ex: 4.10'),
-              controller: _valorAlcool,
+              controller: _controllerValorAlcool,
             ),
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'Preço do litro do Gasolina. Ex: 5.10'),
-              controller: _valorGasolina,
+              controller: _controllerValorGasolina,
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20),
@@ -53,11 +80,11 @@ class _BodyCombustivelState extends State<BodyCombustivel> {
                           fontWeight: FontWeight.bold),
                       primary: Colors.blueGrey),
                   onPressed: () {
-                    print(_valorGasolina.toString());
+                    _calcular();
                   }),
             ),
             Text(
-              'Resultado',
+              _resultado,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             )
           ],
